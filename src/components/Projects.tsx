@@ -17,12 +17,13 @@ export default function Projects() {
                 alt={`${project.name} logo`}
                 className="w-[64px] h-[64px] rounded-[20px] shrink-0 object-cover group-active:scale-[0.95] transition-transform"
               />
-              <div>
+              <div className="flex-1">
                 <h3 className="text-[18px] font-normal text-gray-900 group-hover:text-gray-600 transition-colors">
                   {project.name}
                 </h3>
                 <p className="text-[16px] text-gray-400">{project.description}</p>
               </div>
+              <span className="text-gray-300 text-[18px] shrink-0 group-hover:text-gray-400 transition-colors">›</span>
             </div>
           </a>
         ))}
