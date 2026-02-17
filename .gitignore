@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.tmp
+credentials.json
+token.json
+.DS_Store
+*.local
