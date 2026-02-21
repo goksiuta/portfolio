@@ -34,6 +34,7 @@ export interface BlogPost {
 export interface Thought {
   slug: string;
   date: string;
+  isoDate?: string; // ISO 8601 format for JSON-LD (e.g. "2020-07-01")
   title: string;
   description: string;
   image?: string;

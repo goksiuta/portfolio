@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Thought } from "../data/content";
 
 interface BlogPostProps {
@@ -8,7 +8,8 @@ interface BlogPostProps {
 export default function BlogPost({ thought }: BlogPostProps) {
   const post = thought.blogPost;
 
-  useEffect(() => {
+  // useLayoutEffect avoids a visible scroll flash before first paint
+  useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
@@ -20,9 +21,7 @@ export default function BlogPost({ thought }: BlogPostProps) {
           <p className="text-[12px] font-medium tracking-[0.48px] uppercase text-[#73838a]">
             {thought.date}
           </p>
-          <h1
-            className="text-[26px] font-normal text-black leading-[1.371]"
-          >
+          <h1 className="text-[26px] font-normal text-black leading-[1.371]">
             {thought.title}
           </h1>
         </div>
@@ -42,12 +41,12 @@ export default function BlogPost({ thought }: BlogPostProps) {
 
         {/* Sections */}
         {post?.sections.map((section, i) => (
-          <div key={i} className="w-full flex flex-col items-center gap-[34px]">
+          <div key={section.heading ?? i} className="w-full flex flex-col items-center gap-[34px]">
             {section.image && (
               <div className="w-full rounded-2xl overflow-hidden bg-[#f2f5f7] h-[486px]">
                 <img
                   src={section.image}
-                  alt=""
+                  alt={section.heading ?? thought.title}
                   className="w-full h-full object-cover"
                 />
               </div>

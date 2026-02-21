@@ -5,6 +5,7 @@ import blogImg2 from "../../assets/blog-img/Group 427318941.png";
 const post: Thought = {
   slug: "scalable-multi-device-mobile-system",
   date: "JULY 2020",
+  isoDate: "2020-07-01",
   title: "Creating scalable multi-device mobile system.",
   description:
     "Making sure mobile device works across all different devices available on the market. Easy way.",

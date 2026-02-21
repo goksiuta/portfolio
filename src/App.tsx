@@ -41,6 +41,7 @@ export default function App() {
   const prevScrolledRef = useRef(false);
   const avatarRef = useRef<HTMLImageElement>(null);
   const prevRectRef = useRef<DOMRect | null>(null);
+  const mainRef = useRef<HTMLElement>(null);
 
   // Sync state → URL when thought changes
   useEffect(() => {
@@ -119,12 +120,13 @@ export default function App() {
   }, [isFixed]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const goBack = () => {
-    // Clear title view-transition-name before the transition captures old state
-    // so the title doesn't morph on the way back (only morphs forward)
     document.querySelectorAll<HTMLElement>("[style*='view-transition-name']").forEach((el) => {
       el.style.viewTransitionName = "none";
     });
-    navigate(() => { window.scrollTo(0, 0); setSelectedThought(null); });
+    navigate(
+      () => { window.scrollTo(0, 0); setSelectedThought(null); },
+      () => { mainRef.current?.focus({ preventScroll: true }); }
+    );
   };
 
   return (
@@ -145,14 +147,17 @@ export default function App() {
         <img
           ref={avatarRef}
           src={bio.avatarUrl}
-          alt="Avatar"
+          alt={selectedThought ? "Go back to homepage" : bio.name}
           onClick={selectedThought ? goBack : undefined}
+          role={selectedThought ? "button" : undefined}
+          tabIndex={selectedThought ? 0 : undefined}
+          onKeyDown={selectedThought ? (e) => e.key === "Enter" && goBack() : undefined}
           className={`w-14 h-14 rounded-2xl shrink-0 avatar-img${selectedThought ? " cursor-pointer hover:opacity-80 transition-opacity" : ""}`}
         />
         {selectedThought && (
           <button
             onClick={goBack}
-            className="flex items-center gap-[13px] text-[16px] text-black blog-nav-enter hover:opacity-60 transition-opacity bg-white/90 backdrop-blur-xl rounded-2xl px-3 py-2 border border-white/60 shadow-sm"
+            className="flex items-center gap-[13px] text-[16px] text-black blog-nav-btn hover:opacity-60 transition-opacity bg-white/90 backdrop-blur-xl rounded-2xl px-3 py-2 border border-white/60 shadow-sm"
           >
             <BackArrow />
             <span>All Thoughts</span>
@@ -167,7 +172,9 @@ export default function App() {
         </div>
       ) : (
         <main
-          className="max-w-[920px] mx-auto px-6 pb-16"
+          ref={mainRef}
+          tabIndex={-1}
+          className="max-w-[920px] mx-auto px-6 pb-16 outline-none"
           style={{ paddingTop: scrolled ? AVATAR_CONTAINER_HEIGHT : undefined }}
         >
           <div className="fade-in-section" style={{ animationDelay: "0s" }}>

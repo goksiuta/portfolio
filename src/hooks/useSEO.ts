@@ -33,7 +33,8 @@ function setJsonLD(data: object) {
 
 export function useSEO(thought: Thought | null) {
   useEffect(() => {
-    const { name, siteUrl, text } = bio;
+    const { name, siteUrl, text, avatarUrl } = bio;
+    const avatarAbsoluteUrl = `${window.location.origin}${avatarUrl}`;
 
     if (thought) {
       const url = `${siteUrl}${thought.slug}`;
@@ -58,8 +59,9 @@ export function useSEO(thought: Thought | null) {
         "@type": "Article",
         headline: thought.title,
         description: thought.description,
-        author: { "@type": "Person", name },
+        author: { "@type": "Person", name, url: siteUrl },
         url,
+        ...(thought.isoDate ? { datePublished: thought.isoDate } : {}),
         ...(ogImage ? { image: ogImage } : {}),
       });
     } else {
@@ -71,15 +73,18 @@ export function useSEO(thought: Thought | null) {
       setMeta("property", "og:title", title);
       setMeta("property", "og:description", text);
       setMeta("property", "og:url", siteUrl);
+      setMeta("property", "og:image", avatarAbsoluteUrl);
       setMeta("name", "twitter:card", "summary");
       setMeta("name", "twitter:title", title);
       setMeta("name", "twitter:description", text);
+      setMeta("name", "twitter:image", avatarAbsoluteUrl);
       setCanonical(siteUrl);
       setJsonLD({
         "@context": "https://schema.org",
         "@type": "Person",
         name,
         url: siteUrl,
+        image: avatarAbsoluteUrl,
         jobTitle: "Lead Product Designer",
         sameAs: ["https://github.com/goksiuta"],
       });

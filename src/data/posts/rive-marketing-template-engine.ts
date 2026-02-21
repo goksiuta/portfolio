@@ -5,6 +5,7 @@ import blogImg2 from "../../assets/blog-img/Group 427318941.png";
 const post: Thought = {
   slug: "rive-marketing-template-engine",
   date: "JULY 2020",
+  isoDate: "2020-07-01",
   title: "How Rive Became Our Marketing Template Engine",
   description:
     "Making sure mobile device works across all different devices available on the market. Easy way.",
