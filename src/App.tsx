@@ -5,10 +5,13 @@ import Header from "./components/Header";
 import Projects from "./components/Projects";
 import Thoughts from "./components/Thoughts";
 import BlogPost from "./components/BlogPost";
-import { Thought, bio } from "./data/content";
+import { Thought, bio, thoughts } from "./data/content";
+import { useSEO } from "./hooks/useSEO";
 
 // Height of the avatar container in normal flow (pt-16 + h-14 + pb-5 = 64+56+20 = 140px)
 const AVATAR_CONTAINER_HEIGHT = 140;
+
+const BASE = import.meta.env.BASE_URL; // "/portfolio/"
 
 const BackArrow = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,12 +29,40 @@ function navigate(update: () => void, onDone?: () => void) {
   }
 }
 
+function thoughtFromPath(): Thought | null {
+  const slug = window.location.pathname.slice(BASE.length).replace(/\/$/, "");
+  return thoughts.find((t) => t.slug === slug) ?? null;
+}
+
 export default function App() {
-  const [selectedThought, setSelectedThought] = useState<Thought | null>(null);
+  const [selectedThought, setSelectedThought] = useState<Thought | null>(thoughtFromPath);
+  useSEO(selectedThought);
   const [scrolled, setScrolled] = useState(false);
   const prevScrolledRef = useRef(false);
   const avatarRef = useRef<HTMLImageElement>(null);
   const prevRectRef = useRef<DOMRect | null>(null);
+
+  // Sync state → URL when thought changes
+  useEffect(() => {
+    const newPath = selectedThought ? `${BASE}${selectedThought.slug}` : BASE;
+    if (window.location.pathname !== newPath) {
+      window.history.pushState(null, "", newPath);
+    }
+  }, [selectedThought]);
+
+  // Handle browser back/forward
+  useEffect(() => {
+    const onPopState = () => {
+      const thought = thoughtFromPath();
+      if (thought) {
+        setSelectedThought(thought);
+      } else {
+        navigate(() => { window.scrollTo(0, 0); setSelectedThought(null); });
+      }
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   useEffect(() => {
     if (selectedThought) {
@@ -87,6 +118,15 @@ export default function App() {
     el.addEventListener("transitionend", cleanup, { once: true });
   }, [isFixed]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const goBack = () => {
+    // Clear title view-transition-name before the transition captures old state
+    // so the title doesn't morph on the way back (only morphs forward)
+    document.querySelectorAll<HTMLElement>("[style*='view-transition-name']").forEach((el) => {
+      el.style.viewTransitionName = "none";
+    });
+    navigate(() => { window.scrollTo(0, 0); setSelectedThought(null); });
+  };
+
   return (
     <>
       {/*
@@ -106,11 +146,12 @@ export default function App() {
           ref={avatarRef}
           src={bio.avatarUrl}
           alt="Avatar"
-          className="w-14 h-14 rounded-2xl shrink-0 avatar-img"
+          onClick={selectedThought ? goBack : undefined}
+          className={`w-14 h-14 rounded-2xl shrink-0 avatar-img${selectedThought ? " cursor-pointer hover:opacity-80 transition-opacity" : ""}`}
         />
         {selectedThought && (
           <button
-            onClick={() => navigate(() => { window.scrollTo(0, 0); setSelectedThought(null); })}
+            onClick={goBack}
             className="flex items-center gap-[13px] text-[16px] text-black blog-nav-enter hover:opacity-60 transition-opacity bg-white/90 backdrop-blur-xl rounded-2xl px-3 py-2 border border-white/60 shadow-sm"
           >
             <BackArrow />

@@ -32,6 +32,7 @@ export interface BlogPost {
 }
 
 export interface Thought {
+  slug: string;
   date: string;
   title: string;
   description: string;
@@ -40,6 +41,8 @@ export interface Thought {
 }
 
 export const bio = {
+  name: "Your Name",
+  siteUrl: "https://goksiuta.github.io/portfolio/",
   avatarUrl: avatarImg,
   text: "Current Lead Product Designer @ Layer3. Founder of Talebook–research repository app.",
 };

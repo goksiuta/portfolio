@@ -20,7 +20,9 @@ export default function BlogPost({ thought }: BlogPostProps) {
           <p className="text-[12px] font-medium tracking-[0.48px] uppercase text-[#73838a]">
             {thought.date}
           </p>
-          <h1 className="text-[32px] font-normal text-black leading-[1.371]">
+          <h1
+            className="text-[26px] font-normal text-black leading-[1.371]"
+          >
             {thought.title}
           </h1>
         </div>

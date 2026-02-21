@@ -20,7 +20,9 @@ export default function Thoughts({ onSelect }: ThoughtsProps) {
                 {thought.date}
               </span>
               <div className="w-full sm:w-[420px] shrink-0">
-                <h3 className="text-[18px] font-normal text-gray-900 leading-snug group-hover:text-gray-600 transition-colors">
+                <h3
+                  className="text-[18px] font-normal text-gray-900 leading-snug group-hover:text-gray-600 transition-colors"
+                >
                   {thought.title}
                 </h3>
                 <p className="mt-2 text-[16px] text-gray-400 leading-relaxed">

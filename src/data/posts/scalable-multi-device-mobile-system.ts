@@ -3,6 +3,7 @@ import blogImg1 from "../../assets/blog-img/Group 427318942.png";
 import blogImg2 from "../../assets/blog-img/Group 427318941.png";
 
 const post: Thought = {
+  slug: "scalable-multi-device-mobile-system",
   date: "JULY 2020",
   title: "Creating scalable multi-device mobile system.",
   description:

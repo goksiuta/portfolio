@@ -3,6 +3,7 @@ import blogImg1 from "../../assets/blog-img/Group 427318942.png";
 import blogImg2 from "../../assets/blog-img/Group 427318941.png";
 
 const post: Thought = {
+  slug: "rive-marketing-template-engine",
   date: "JULY 2020",
   title: "How Rive Became Our Marketing Template Engine",
   description:
