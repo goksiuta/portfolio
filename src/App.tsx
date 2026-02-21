@@ -110,7 +110,7 @@ export default function App() {
         />
         {selectedThought && (
           <button
-            onClick={() => navigate(() => setSelectedThought(null))}
+            onClick={() => navigate(() => { window.scrollTo(0, 0); setSelectedThought(null); })}
             className="flex items-center gap-[13px] text-[16px] text-black blog-nav-enter hover:opacity-60 transition-opacity bg-white/90 backdrop-blur-xl rounded-2xl px-3 py-2 border border-white/60 shadow-sm"
           >
             <BackArrow />
