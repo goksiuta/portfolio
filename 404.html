@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      // GitHub Pages SPA routing trick.
+      // When someone visits /portfolio/slug, GitHub 404s (no such file).
+      // This script encodes the path into a query param and redirects back
+      // to the app root, which then restores the URL before React boots.
+      var base = '/portfolio/';
+      var slug = window.location.pathname.slice(base.length);
+      if (slug) {
+        window.location.replace(
+          base + '?p=' + encodeURIComponent(slug) + window.location.hash
+        );
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
