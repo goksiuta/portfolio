@@ -65,7 +65,7 @@ export function useSEO(thought: Thought | null) {
         ...(ogImage ? { image: ogImage } : {}),
       });
     } else {
-      const title = `${name} — Product Designer`;
+      const title = `${name} - Product Designer`;
 
       document.title = title;
       setMeta("name", "description", text);

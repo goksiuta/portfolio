@@ -42,10 +42,10 @@ export interface Thought {
 }
 
 export const bio = {
-  name: "Your Name",
+  name: "Greg Oksiuta",
   siteUrl: "https://goksiuta.github.io/portfolio/",
   avatarUrl: avatarImg,
-  text: "Current Lead Product Designer @ Layer3. Founder of Talebook–research repository app.",
+  text: "Current Lead Product Designer @ Layer3. Working on Ample, Layer3, and Mellow.",
 };
 
 export const projects: Project[] = [
