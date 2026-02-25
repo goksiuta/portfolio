@@ -123,6 +123,11 @@ export default function App() {
     document.querySelectorAll<HTMLElement>("[style*='view-transition-name']").forEach((el) => {
       el.style.viewTransitionName = "none";
     });
+    // Hide the back button before the view transition captures the old state,
+    // so its backdrop-blur doesn't bleed into the transition snapshots.
+    document.querySelectorAll<HTMLElement>(".blog-nav-btn").forEach((el) => {
+      el.style.visibility = "hidden";
+    });
     navigate(
       () => { window.scrollTo(0, 0); setSelectedThought(null); },
       () => { mainRef.current?.focus({ preventScroll: true }); }
@@ -157,7 +162,7 @@ export default function App() {
         {selectedThought && (
           <button
             onClick={goBack}
-            className="flex items-center gap-[13px] text-[16px] text-black blog-nav-btn hover:opacity-60 transition-opacity bg-white/90 backdrop-blur-xl rounded-2xl px-3 py-2 border border-white/60 shadow-sm"
+            className="flex items-center gap-[13px] text-[16px] text-black blog-nav-btn hover:shadow-md transition-shadow bg-white rounded-2xl px-3 py-2 border border-white/60 shadow-sm"
           >
             <BackArrow />
             <span>All Thoughts</span>
