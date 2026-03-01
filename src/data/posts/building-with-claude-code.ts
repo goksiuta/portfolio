@@ -1,6 +1,7 @@
 import { Thought } from "../content";
 import pokemonImg from "../../assets/blog-img/claude-code-post-pokemon.png";
 import portfolioImg from "../../assets/blog-img/claude-code-post-portfolio.png";
+import thumbnailImg from "../../assets/blog-thumbnail/claude-code.png";
 
 const post: Thought = {
   slug: "building-with-claude-code",
@@ -9,7 +10,7 @@ const post: Thought = {
   title: "Building With Claude Code",
   description:
     "This new portfolio started from a simple idea. I wanted to build something fully on my own, from start to finish.",
-  image: portfolioImg,
+  image: thumbnailImg,
   blogPost: {
     intro: [
       "This new portfolio started from a simple idea. I wanted to build something fully on my own, from start to finish. I've been curious about Claude Code for a while, so I decided to use it for something real instead of just reading about it. No pressure. Just building.",
