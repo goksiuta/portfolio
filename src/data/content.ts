@@ -44,7 +44,7 @@ export interface Thought {
 
 export const bio = {
   name: "Greg Oksiuta",
-  siteUrl: "https://goksiuta.github.io/portfolio/",
+  siteUrl: "https://goksiuta.com/",
   avatarUrl: avatarImg,
   text: "Current Lead Product Designer @ Layer3. Working on Ample, Layer3, and Mellow.",
 };
