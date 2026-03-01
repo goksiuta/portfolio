@@ -10,8 +10,6 @@ import l3Logo from "../assets/l3-logo.svg";
 import mellowLogo from "../assets/mellow-logo.svg";
 
 // Blog posts — each in its own file for easy editing
-import rivePost from "./posts/rive-marketing-template-engine";
-import mobilePost from "./posts/scalable-multi-device-mobile-system";
 import claudePost from "./posts/building-with-claude-code";
 
 export interface Project {
@@ -73,6 +71,4 @@ export const projects: Project[] = [
 // Add new blog posts here — create the file in src/data/posts/ first
 export const thoughts: Thought[] = [
   claudePost,
-  rivePost,
-  mobilePost,
 ];
