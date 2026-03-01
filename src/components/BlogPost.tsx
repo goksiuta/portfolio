@@ -43,11 +43,12 @@ export default function BlogPost({ thought }: BlogPostProps) {
         {post?.sections.map((section, i) => (
           <div key={section.heading ?? i} className="w-full flex flex-col items-center gap-[34px]">
             {section.image && (
-              <div className="w-full rounded-2xl overflow-hidden bg-[#f2f5f7] h-[486px]">
+              <div className="w-full rounded-2xl bg-[#f2f5f7] flex items-center justify-center py-12 px-6">
                 <img
                   src={section.image}
                   alt={section.heading ?? thought.title}
-                  className="w-full h-full object-cover"
+                  className="w-full max-w-[670px] rounded-[6px]"
+                  style={{ filter: "drop-shadow(0px 86px 61.6px rgba(0, 0, 0, 0.05))" }}
                 />
               </div>
             )}
