@@ -9,6 +9,7 @@ const post: Thought = {
   title: "Building With Claude Code",
   description:
     "This new portfolio started from a simple idea. I wanted to build something fully on my own, from start to finish.",
+  image: portfolioImg,
   blogPost: {
     intro: [
       "This new portfolio started from a simple idea. I wanted to build something fully on my own, from start to finish. I've been curious about Claude Code for a while, so I decided to use it for something real instead of just reading about it. No pressure. Just building.",
