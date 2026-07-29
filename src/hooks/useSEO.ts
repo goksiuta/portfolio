@@ -35,12 +35,15 @@ export function useSEO(thought: Thought | null) {
   useEffect(() => {
     const { name, siteUrl, text, avatarUrl } = bio;
     const avatarAbsoluteUrl = `${window.location.origin}${avatarUrl}`;
+    // Share card served from public/ — must match the static tags in index.html,
+    // which is all social scrapers ever see (they don't run JS).
+    const shareImageUrl = `${window.location.origin}/og.png`;
 
     if (thought) {
       const url = `${siteUrl}${thought.slug}`;
       const ogImage = thought.image
         ? `${window.location.origin}${thought.image}`
-        : undefined;
+        : shareImageUrl;
 
       document.title = `${thought.title} — ${name}`;
       setMeta("name", "description", thought.description);
@@ -48,11 +51,11 @@ export function useSEO(thought: Thought | null) {
       setMeta("property", "og:title", thought.title);
       setMeta("property", "og:description", thought.description);
       setMeta("property", "og:url", url);
-      if (ogImage) setMeta("property", "og:image", ogImage);
-      setMeta("name", "twitter:card", ogImage ? "summary_large_image" : "summary");
+      setMeta("property", "og:image", ogImage);
+      setMeta("name", "twitter:card", "summary_large_image");
       setMeta("name", "twitter:title", thought.title);
       setMeta("name", "twitter:description", thought.description);
-      if (ogImage) setMeta("name", "twitter:image", ogImage);
+      setMeta("name", "twitter:image", ogImage);
       setCanonical(url);
       setJsonLD({
         "@context": "https://schema.org",
@@ -65,7 +68,7 @@ export function useSEO(thought: Thought | null) {
         ...(ogImage ? { image: ogImage } : {}),
       });
     } else {
-      const title = `${name} - Product Designer`;
+      const title = `${name} — Product Designer`;
 
       document.title = title;
       setMeta("name", "description", text);
@@ -73,11 +76,11 @@ export function useSEO(thought: Thought | null) {
       setMeta("property", "og:title", title);
       setMeta("property", "og:description", text);
       setMeta("property", "og:url", siteUrl);
-      setMeta("property", "og:image", avatarAbsoluteUrl);
-      setMeta("name", "twitter:card", "summary");
+      setMeta("property", "og:image", shareImageUrl);
+      setMeta("name", "twitter:card", "summary_large_image");
       setMeta("name", "twitter:title", title);
       setMeta("name", "twitter:description", text);
-      setMeta("name", "twitter:image", avatarAbsoluteUrl);
+      setMeta("name", "twitter:image", shareImageUrl);
       setCanonical(siteUrl);
       setJsonLD({
         "@context": "https://schema.org",
